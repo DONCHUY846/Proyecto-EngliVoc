@@ -1,0 +1,39 @@
+primario #1b74bf
+analogo Análogo 1: #1b3ebf (azul oscuro)
+Análogo 2: <?php
+session_start();
+include("conexion.php");
+
+$nombre = $_SESSION['username'];
+$wordId = $_POST['wordId'];
+$translation = $_POST['translation'];
+
+// Consulta para obtener la traducción correcta
+$sql = "SELECT sigingles FROM palabras INNER JOIN usuario_pal ON id_pal = id_pal1 WHERE nickname1 = '$nombre' AND id_pal = $wordId";
+$result = pg_query($conexion, $sql);
+$row = pg_fetch_assoc($result);
+
+$correctTranslation = $row['sigingles'];
+
+// Verifica si la traducción proporcionada es correcta
+if (strcasecmp($translation, $correctTranslation) == 0) {
+    // Si la traducción es correcta, elimina la palabra
+    $deleteSql = "DELETE FROM usuario_pal WHERE id_pal1 = $wordId AND nickname1 = '$nombre'";
+    pg_query($conexion, $deleteSql);
+    echo json_encode(['status' => 'success']);
+} else {
+    echo json_encode(['status' => 'error']);
+}
+?>
+ (verde azulado)
+COLORES DE ACENTO
+Acento 1: #f2c94c (amarillo dorado)
+Acento 2: #f2994a (naranja suave)
+Acento 3: #f2f2f2 (gris claro, como color neutro)
+
+Definiciones 
+Color Complementario: Es el color que se encuentra directamente opuesto en la rueda de colores. Los colores complementarios suelen crear un contraste fuerte y se destacan cuando se usan juntos.
+
+Colores Análogos: Son colores que se encuentran uno al lado del otro en la rueda de colores. Estos colores suelen combinar bien y crean combinaciones agradables y armónicas.
+
+Colores de Acento: Son colores utilizados para resaltar ciertos elementos en un diseño. No necesariamente deben ser complementarios o análogos, pero deben contrastar bien con el color principal para atraer la atención sin resultar discordantes.
